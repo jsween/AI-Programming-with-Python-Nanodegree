@@ -1,7 +1,9 @@
 from setuptools import setup
 
-setup(name='distributions',
-      version='0.2',
+setup(name='jsween26_probability',
+      version='0.0.1',
       description='Gaussian and Binomial distributions',
-      packages=['distributions'],
+      packages=['jsween26_probability'],
+      author='Jonathan Sweeney',
+      author_email='jonsweeney26@gmail.com',
       zip_safe=False)
