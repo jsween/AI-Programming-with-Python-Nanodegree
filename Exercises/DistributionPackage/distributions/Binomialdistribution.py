@@ -36,6 +36,7 @@ class Binomial(Distribution):
         
         return self.mean
     
+
     def calc_stdev(self):
         """ Function to calculate the standard deviation from p and n.
         
@@ -50,3 +51,22 @@ class Binomial(Distribution):
         self.std = math.sqrt(self.n * self.p * (1 - self.p))
 
         return self.stdev
+    
+    def replace_stats_with_data(self):
+        """ Function to calculate p and n from the data set
+        
+        Args: 
+            None
+        
+        Returns: 
+            float: the p value
+            float: the n value
+    
+        """
+        
+        self.n = len(self.data)
+        self.p = 1.0 * sum(self.data) / len(self.data)
+        self.mean = self.calculate_mean()
+        self.stdev = self.calc_stdev()
+
+        return self.p, self.n
