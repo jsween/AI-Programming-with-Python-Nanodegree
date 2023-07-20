@@ -18,10 +18,27 @@ class Gaussian():
         self.data = []
 
 
-    
+    def __add__(self, other):
+        """ Function to add two Gaussian distributions together
+        
+        Args:
+            other (Gaussian): Gaussian instance
+
+        Returns:
+            Gaussian: Guassian distribution
+
+        """
+
+        result = Gaussian()
+        result.mean = self.mean + other.mean
+        result.stdev = math.sqrt(self.stdev ** 2 + other.stdev ** 2)
+        
+        return result
+
+
     def calculate_mean(self):
     
-        """Method to calculate the mean of the data set.
+        """ Method to calculate the mean of the data set.
         
         Args: 
             None
@@ -34,8 +51,6 @@ class Gaussian():
         self.mean = 1.0 * sum(self.data) / len(self.data)
         return self.mean
         
-                
-
 
     def calculate_stdev(self, sample=True):
 
