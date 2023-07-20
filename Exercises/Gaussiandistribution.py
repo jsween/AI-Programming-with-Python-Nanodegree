@@ -91,15 +91,9 @@ class Gaussian():
         self.mean = self.calculate_mean()
         print(self.mean)
         self.stdev = self.calculate_stdev(sample)
-        # TODO: 
-        #   Update the self.data attribute with the data_list
-        #   Update self.mean with the mean of the data_list. 
-        #       You can use the calculate_mean() method with self.calculate_mean()
-        #   Update self.stdev with the standard deviation of the data_list. Use the 
-        #       calcaulte_stdev() method.
                 
         
-    def plot_histogram(self):
+    def plot_histogram(self, n_spaces = 50):
         """Method to output a histogram of the instance variable data using 
         matplotlib pyplot library.
         
@@ -112,8 +106,32 @@ class Gaussian():
         
         # TODO: Plot a histogram of the data_list using the matplotlib package.
         #       Be sure to label the x and y axes and also give the chart a title
+        mu = self.mean
+        sigma = self.stdev
+
+        min_range = min(self.data)
+        max_range = max(self.data)
+
+        interval = 1.0 * (max_range - min_range) / n_spaces
+
+        x = []
+        y = []
+
+        for i in range(n_spaces):
+            tmp = min_range + interval * i
+            x.append(tmp)
+            y.append(self.pdf(tmp))
         
-                
+        # plot
+        fig, axes = plt.subplots(2, sharex=True)
+        fig.subplots_adjust(hspace=.5)
+        axes[0].hist(self.data, density=True)
+        axes[0].set_title('Normed Histogram of Data')
+        axes[0].set_ylabel('Density')
+
+        axes[1].plot(x, y)
+        axes[1].set_title('Normal Distribution for \nSample Mean and Sample Standard Deviation')
+        plt.show()
         
     def pdf(self, x):
         """Probability density function calculator for the gaussian distribution.
@@ -126,9 +144,7 @@ class Gaussian():
             float: probability density function output
         """
         
-        # TODO: Calculate the probability density function of the Gaussian distribution
-        #       at the value x. You'll need to use self.stdev and self.mean to do the calculation
-        pass        
+        return (1.0 / (self.stdev * math.sqrt(2*math.pi))) * math.exp(-0.5*((x - self.mean) / self.stdev) ** 2)      
 
     def plot_histogram_pdf(self, n_spaces = 50):
 
