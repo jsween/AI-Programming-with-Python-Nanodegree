@@ -32,8 +32,14 @@ class TestGaussianClass(unittest.TestCase):
         self.assertEqual(guassian_sum.mean, 15, 'calculated mean after addition not as expected')
         self.assertEqual(round(guassian_sum.stdev, 2), 2.24, 'calculated stdev after addition not as expected')
 
+        gaussian_one = Gaussian(25, 3)
+        gaussian_two = Gaussian(30, 4)
+        gaussian_sum = gaussian_one + gaussian_two
+        self.assertEqual(gaussian_sum.mean, 55, 'calculated mean after addition not as expected')
+        self.assertEqual(gaussian_sum.stdev, 5, 'calculated stdev after addition not as expected')
+
     def test_repr(self):
-        self.assertEqual(f'{self.gaussian}', 'mean: 25, stand dev: 2', 'incorrect repr string returned')
+        self.assertEqual(str(self.gaussian), 'mean: 25, stand dev: 2', 'incorrect repr string returned')
 
 if __name__ == '__main__':
     unittest.main()
