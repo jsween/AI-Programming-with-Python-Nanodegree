@@ -1,7 +1,9 @@
+from Generaldistribution import Distribution
 import math
 import matplotlib.pyplot as plt
 
-class Gaussian():
+
+class Gaussian(Distribution):
     """ Gaussian distribution class for calculating and 
     visualizing a Gaussian distribution.
     
@@ -123,20 +125,17 @@ class Gaussian():
         
         """
         
-        # This code opens a data file and appends the data to a list called data_list
-        data_list = []
         with open(file_name) as file:
+            data_list = []
             line = file.readline()
             while line:
                 data_list.append(int(line))
                 line = file.readline()
-        file.close()
+            file.close()
 
-        self.data = data_list
-        print(self.data)
-        self.mean = self.calculate_mean()
-        print(self.mean)
-        self.stdev = self.calculate_stdev(sample)
+            self.data = data_list
+            self.mean = self.calculate_mean()
+            self.stdev = self.calculate_stdev(sample)
                 
         
     def plot_histogram(self, n_spaces = 50):
@@ -176,7 +175,8 @@ class Gaussian():
         axes[1].plot(x, y)
         axes[1].set_title('Normal Distribution for \nSample Mean and Sample Standard Deviation')
         plt.show()
-        
+
+
     def pdf(self, x):
         """Probability density function calculator for the gaussian distribution.
         
@@ -189,6 +189,7 @@ class Gaussian():
         """
         
         return (1.0 / (self.stdev * math.sqrt(2*math.pi))) * math.exp(-0.5*((x - self.mean) / self.stdev) ** 2)      
+
 
     def plot_histogram_pdf(self, n_spaces = 50):
 
