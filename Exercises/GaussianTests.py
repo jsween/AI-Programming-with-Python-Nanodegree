@@ -10,9 +10,9 @@ class TestGaussianClass(unittest.TestCase):
         self.assertEqual(self.gaussian.mean, 25, 'incorrect mean')
         self.assertEqual(self.gaussian.stdev, 2, 'incorrect standard deviation')
 
-    # def test_pdf(self):
-    #     self.assertEqual(round(self.gaussian.pdf(25), 5), 0.19947,\
-    #      'pdf function does not give expected result') 
+    def test_pdf(self):
+        self.assertEqual(round(self.gaussian.pdf(25), 5), 0.19947,\
+         'pdf function does not give expected result') 
 
     def test_meancalculation(self):
         self.gaussian.read_data_file('TestData/numbers.txt', True)
