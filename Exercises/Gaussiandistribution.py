@@ -49,6 +49,24 @@ class Gaussian():
         return result
 
 
+    def __sub__(self, other): 
+        """ Function to subtract a Guassian distribution from another
+
+        Args: 
+            other (Gaussian): Gaussian instance
+
+        Returns:
+            Gaussian: Gaussian distribution
+        
+        """
+
+        result = Gaussian()
+        result.mean = self.mean - other.mean
+        result.stdev = math.sqrt(self.stdev ** 2 + other.stdev ** 2)
+
+        return result
+    
+
     def calculate_mean(self):
     
         """ Method to calculate the mean of the data set.
@@ -63,7 +81,7 @@ class Gaussian():
 
         self.mean = 1.0 * sum(self.data) / len(self.data)
         return self.mean
-        
+
 
     def calculate_stdev(self, sample=True):
 
