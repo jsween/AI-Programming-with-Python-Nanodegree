@@ -1,4 +1,4 @@
-from Generaldistribution import Distribution
+from .Generaldistribution import Distribution
 import math
 import matplotlib.pyplot as plt
 

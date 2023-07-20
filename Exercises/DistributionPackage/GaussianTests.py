@@ -1,6 +1,6 @@
 import unittest
 
-from Gaussiandistribution import Gaussian
+from distributions import Gaussian
 
 class TestGaussianClass(unittest.TestCase):
     def setUp(self):
