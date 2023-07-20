@@ -30,6 +30,7 @@ class Gaussian(Distribution):
             string: characteristics of the Gaussian
         
         """
+        
         return f'mean: {self.mean}, stand dev: {self.stdev}'
 
 
