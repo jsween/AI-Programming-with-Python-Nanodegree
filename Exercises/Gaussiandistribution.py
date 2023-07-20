@@ -47,18 +47,20 @@ class Gaussian():
         Returns: 
             float: standard deviation of the data set
     
-        """
-
-        # TODO:
-        #   Calculate the standard deviation of the data set
-        #   
-        #   The sample variable determines if the data set contains a sample or a population
-        #   If sample = True, this means the data is a sample. 
-        #   Keep the value of sample in mind for calculating the standard deviation
-        #
-        #   Make sure to update self.stdev and return the standard deviation as well    
+        """  
             
-        pass
+        mean = self.mean
+        sigma = 0
+
+        n = len(self.data) - 1 if sample else len(self.data)
+
+        for data in self.data:
+            sigma += (data - mean) ** 2
+        
+        sigma = math.sqrt(sigma / n)
+        self.stdev = sigma 
+
+        return self.stdev
         
 
     def read_data_file(self, file_name, sample=True):
@@ -88,7 +90,7 @@ class Gaussian():
         print(self.data)
         self.mean = self.calculate_mean()
         print(self.mean)
-        self.stdev = self.calculate_stdev()
+        self.stdev = self.calculate_stdev(sample)
         # TODO: 
         #   Update the self.data attribute with the data_list
         #   Update self.mean with the mean of the data_list. 
