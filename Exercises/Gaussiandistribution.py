@@ -18,6 +18,19 @@ class Gaussian():
         self.data = []
 
 
+    def __repr__(self) -> str:
+        """ Function to output the characteristics of the Gaussian instance
+        
+        Args:
+            None
+        
+        Returns:
+            string: characteristics of the Gaussian
+        
+        """
+        return f'mean: {self.mean}, stand dev: {self.stdev}'
+
+
     def __add__(self, other):
         """ Function to add two Gaussian distributions together
         
