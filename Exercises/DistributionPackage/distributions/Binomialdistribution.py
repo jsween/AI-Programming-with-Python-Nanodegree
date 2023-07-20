@@ -70,3 +70,20 @@ class Binomial(Distribution):
         self.stdev = self.calculate_stdev()
 
         return self.p, self.n
+    
+    def plot_bar(self):
+        """ Function to output a histogram of the instance variable data using 
+        matplotlib pyplot library.
+        
+        Args:
+            None
+            
+        Returns:
+            None
+        
+        """
+                
+        plt.bar(x = ['0', '1'], height = [(1 - self.p) * self.n, self.p * self.n])
+        plt.title('Bar Chart of Data')
+        plt.xlabel('outcome')
+        plt.ylabel('count')
