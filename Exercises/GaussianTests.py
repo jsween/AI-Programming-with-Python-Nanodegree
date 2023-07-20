@@ -5,6 +5,8 @@ from Gaussiandistribution import Gaussian
 class TestGaussianClass(unittest.TestCase):
     def setUp(self):
         self.gaussian = Gaussian(25, 2)
+        self.gaussian2 = Gaussian(5, 2)
+        self.gaussian3 = Gaussian(10, 1)
 
     def test_initialization(self): 
         self.assertEqual(self.gaussian.mean, 25, 'incorrect mean')
@@ -26,5 +28,10 @@ class TestGaussianClass(unittest.TestCase):
         self.assertEqual(round(self.gaussian.stdev, 2), 88.55, 'population standard deviation incorrect')
                 
     
+    def test_add(self):
+        guassian_sum = self.gaussian2 + self.gaussian3
+        self.assertEqual(guassian_sum.mean, 15, 'calculated mean after addition not as expected')
+        self.assertEqual(round(guassian_sum.stdev, 2), 2.24, 'calculated stdev after addition not as expected')
+
 if __name__ == '__main__':
     unittest.main()
