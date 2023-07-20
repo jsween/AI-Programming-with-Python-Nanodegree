@@ -26,12 +26,14 @@ class TestGaussianClass(unittest.TestCase):
         self.assertEqual(round(self.gaussian.stdev, 2), 92.87, 'sample standard deviation incorrect')
         self.gaussian.read_data_file('TestData/numbers.txt', False)
         self.assertEqual(round(self.gaussian.stdev, 2), 88.55, 'population standard deviation incorrect')
-                
     
     def test_add(self):
         guassian_sum = self.gaussian2 + self.gaussian3
         self.assertEqual(guassian_sum.mean, 15, 'calculated mean after addition not as expected')
         self.assertEqual(round(guassian_sum.stdev, 2), 2.24, 'calculated stdev after addition not as expected')
+
+    def test_repr(self):
+        self.assertEqual(f'{self.gaussian}', 'mean: 25, stand dev: 2', 'incorrect repr string returned')
 
 if __name__ == '__main__':
     unittest.main()
