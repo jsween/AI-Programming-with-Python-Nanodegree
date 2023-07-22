@@ -50,7 +50,7 @@ def get_pet_labels(image_dir):
                     break
             
             if in_files[idx] not in results_dict:
-                results_dict[in_files[idx]] = [pet_label]
+                results_dict[in_files[idx]] = [pet_label.replace("_", " ")]
             else:
                 print(f'WARNING: Duplicate files exist in directory: {in_files[idx]}')
 
