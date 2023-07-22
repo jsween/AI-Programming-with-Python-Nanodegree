@@ -46,7 +46,7 @@ def get_pet_labels(image_dir):
 
             for i, c in enumerate(in_files[idx]):
                 if c.isdigit():
-                    pet_label = in_files[idx][:i-1]
+                    pet_label = in_files[idx][:i-1].lower()
                     break
             
             if in_files[idx] not in results_dict:
