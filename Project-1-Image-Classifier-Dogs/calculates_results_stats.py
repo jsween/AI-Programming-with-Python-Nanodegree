@@ -71,13 +71,14 @@ def calculates_results_stats(results_dic):
     results_stats_dic = dict()
 
     # Initialize all counters to 0 so they can be incremented
-    results_stats_dic["n_dogs_img"] = 0
     results_stats_dic["n_match"] = 0
+    results_stats_dic["n_dogs_img"] = 0
     results_stats_dic["n_correct_dogs"] = 0
-    results_stats_dic["n_correct_notdogs"] = 0
     results_stats_dic["n_correct_breed"] = 0
-    #   filename    petImgLbl  classLbl  mtchPI/CL  isDog   classAsDog
-    # 'cat_01.jpg : ['cat',     'lynx',      0,        0,      0]
+    results_stats_dic["n_correct_notdogs"] = 0
+    #   filename                petImgLbl     classLbl  mtchPI/CL  isDog   classAsDog
+    # 'cat_01.jpg :             ['cat',        'lynx',      0,        0,      0]
+    # 'Great_dane_123.jpg':     ['great dane', 'great dane' 1,        1,      1]
     # iterate through results dict
     for key in results_dic:
         # Labels match exactly
@@ -85,7 +86,7 @@ def calculates_results_stats(results_dic):
             results_stats_dic["n_match"] += 1
         # Pet image Label is a Dog and Labels match (Counts correct breed)
         if sum(results_dic[key][2:]) == 3:
-            results_stats_dic["n_dogs_img"] += 1
+            results_stats_dic["n_correct_breed"] += 1
         # Pet Image Label is a Dog - counts number of dog images
         if results_dic[key][3] == 1:
             results_stats_dic["n_dogs_img"] += 1
