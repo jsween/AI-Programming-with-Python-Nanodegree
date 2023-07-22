@@ -61,7 +61,6 @@ def classify_images(images_dir, results_dic, model):
      Returns:
            None - results_dic is mutable data type so no return needed.
     """
-    print(f"Images Dir: {images_dir}")
     for key in results_dic:
         model_label = classifier(os.path.join(images_dir, key), model).strip().lower()
         results_dic[key].append(model_label)
