@@ -52,6 +52,9 @@ def get_input_args():
 def get_data():
     """
     Gets the data directories
+
+    Returns:
+      Image data organized by category
     """
     print("Getting data...")
     data_dir = "flowers"
@@ -63,6 +66,12 @@ def get_data():
 
 
 def process_images(data_dirs):
+    """
+    Processes the raw images to be ready to be used to train the model
+
+    Returns:
+      JSON object with image data broken into train, valid, test and the labels
+    """
     train_dir, valid_dir, test_dir = data_dirs
     normalize = transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 
