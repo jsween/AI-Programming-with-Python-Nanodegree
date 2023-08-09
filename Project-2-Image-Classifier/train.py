@@ -20,21 +20,12 @@
 #   Example call:
 #    python train.py data_dir --learning_rate 0.01 --hidden_units 512 --epochs 20 --gpu
 ##
+
 from time import time
-
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
-
-from collections import OrderedDict
-from torch import nn
-from torch import optim
-
-import torch.nn.functional as F
-from torchvision import datasets, transforms, models
 
 from PIL import Image
 
+import classifier as clsf
 from get_data import *
 from validation_functions import *
 
@@ -45,6 +36,7 @@ def main():
 
     data = get_data()
 
+    classifier = clsf.build(in_arg.arch, data)
     end_time = time()
 
     tot_time = end_time - start_time

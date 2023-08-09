@@ -1,3 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# PROGRAMMER: Jon Sweeney
+# DATE CREATED: 20230809
+# REVISED DATE:
+# PURPOSE:  This set of functions to fetch various data
+#
+##
 import argparse
 
 import json
