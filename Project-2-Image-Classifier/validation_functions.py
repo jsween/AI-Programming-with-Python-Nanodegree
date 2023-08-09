@@ -11,7 +11,6 @@
 
 import os
 
-
 def check_command_line_arguments(in_arg):
     """
     Prints each of the command line arguments passed in as parameter in_arg,
@@ -45,6 +44,9 @@ def check_command_line_arguments(in_arg):
         )
     elif not os.path.isdir(in_arg.dir):
         raise Exception(f"Invalid directory: '{in_arg.dir}' does not exist.")
+    sub_dirs = os.listdir(in_arg.dir)
+    if 'train' not in sub_dirs and 'valid' not in sub_dirs and 'test' not in sub_dirs:
+        raise Exception(f"Missing one or more of sub directories train, valid, test. Found {sub_dirs}")
     else:
         # prints command line agrs
         print(
