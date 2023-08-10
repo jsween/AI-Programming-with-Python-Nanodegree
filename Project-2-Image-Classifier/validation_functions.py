@@ -11,6 +11,8 @@
 
 import os
 
+import torch
+
 def check_command_line_arguments(in_arg):
     """
     Prints each of the command line arguments passed in as parameter in_arg,
@@ -55,3 +57,17 @@ def check_command_line_arguments(in_arg):
             "\n\tarch =",
             in_arg.arch,
         )
+
+
+def check_accuracy_on_test(testloader, model, device='cpu'):    
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for data in testloader:
+            images, labels = data[0].to(device), data[1].to(device)
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    print('Accuracy of the network on the 10,000 test images: %d %%' % (100 * correct / total))
+    return correct / total 

@@ -44,7 +44,7 @@ def get_input_args():
     parser.add_argument(
         "--save",
         type=str,
-        default="checkpoints/",
+        default="check.pth",
         help="The path to the directory to save the checkpoints",
     )
     parser.add_argument(
@@ -65,6 +65,7 @@ def get_data():
     Returns:
       Image data organized by category
     """
+    # TODO: Change to use command line arguments
     print("Getting data...")
     data_dir = "flowers"
     train_dir = data_dir + "/train"
@@ -115,8 +116,8 @@ def process_images(data_dirs):
 
     print("Image data loaded")
     return {
-        "train": trainloaders,
-        "valid": validloaders,
-        "test": testloaders,
+        "train_loaders": trainloaders,
+        "valid_loaders": validloaders,
+        "test_loaders": testloaders,
         "labels": cat_to_name,
     }

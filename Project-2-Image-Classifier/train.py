@@ -25,9 +25,11 @@ from time import time
 
 from PIL import Image
 
-import classifier as clsf
+from classifier import *
 from get_data import *
 from validation_functions import *
+
+from torch import optim
 
 def main():
     start_time = time()
@@ -36,7 +38,13 @@ def main():
 
     data = get_data()
 
-    classifier = clsf.build(in_arg.arch, data)
+    model = build_classifier(in_arg.arch)
+    train_classifier(model, data['train_loaders'], data['valid_loaders'], 3, 40, device='cpu')
+ 
+    check_accuracy_on_test(data['test_loaders'], model)
+
+    save_model(model, data, in_arg.save)
+    
     end_time = time()
 
     tot_time = end_time - start_time
