@@ -3,7 +3,7 @@
 #
 # PROGRAMMER: Jon Sweeney
 # DATE CREATED: 20230809
-# REVISED DATE:
+# REVISED DATE: 20230810
 # PURPOSE:  This set of functions to fetch various data
 #
 ##
@@ -34,12 +34,10 @@ def get_train_input_args():
     Returns:
      parse_args() -data structure that stores the command line arguments object
     """
-    # TODO: Finish getting all arguments 
     print("Parsing arguments...")
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        # TODO: Remove the double hyphen
-        "--dir",
+        "dir",
         type=str,
         help="Required: The path to the directory containing flower images (e.g. flowers/)",
     )
@@ -55,6 +53,30 @@ def get_train_input_args():
         default="vgg",
         help="The CNN Model Architecture to use (e.g. vgg)",
     )
+    parser.add_argument(
+        "--learning_rate",
+        type=float,
+        default=0.001,
+        help="The learning rate to train with (e.g. 0.001)",
+    )
+    parser.add_argument(
+        "--hidden_units",
+        type=int,
+        default=512,
+        help="The number of hidden units (e.g. 3)",
+    )
+    parser.add_argument(
+        "--epochs",
+        type=int,
+        default=20,
+        help="The number of epochs to use (e.g. 20)",
+    )
+    parser.add_argument(
+        "--gpu",
+        type=str,
+        help="Use to utilize GPU for training (e.g. --gpu)",
+    )
+    
     print("Command line arguments parsed")
 
     return parser.parse_args()
