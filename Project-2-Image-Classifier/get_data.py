@@ -14,7 +14,7 @@ import torch
 from torchvision import datasets, transforms
 
 
-def get_input_args():
+def get_train_input_args():
     """
     Retrieves and parses 1 to 7 command line arguments provided by the user when
     they run the program from a terminal window. This function uses Python's
@@ -34,6 +34,7 @@ def get_input_args():
     Returns:
      parse_args() -data structure that stores the command line arguments object
     """
+    # TODO: Finish getting all arguments 
     print("Parsing arguments...")
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -58,7 +59,12 @@ def get_input_args():
     return parser.parse_args()
 
 
-def get_data():
+def get_predict_input_args():
+    print('Parsing command line arguments...')
+
+    print('Arguments parsed.')
+
+def get_train_data():
     """
     Gets the data directories
 
