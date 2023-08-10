@@ -75,7 +75,7 @@ def get_predict_input_args():
     )
     parser.add_argument(
         "--top_k",
-        type=str,
+        type=int,
         default="5",
         help="Show the top K likely classes (e.g. 3)",
     )
@@ -87,12 +87,13 @@ def get_predict_input_args():
     )
     parser.add_argument(
         "--gpu",
-        type=bool,
+        type=str,
         help="Enable gpu",
     )
     print("Command line arguments parsed")
 
     return parser.parse_args()
+
 
 def get_train_data():
     """

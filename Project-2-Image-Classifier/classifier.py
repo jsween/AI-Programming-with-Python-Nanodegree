@@ -10,9 +10,15 @@
 
 from collections import OrderedDict
 
+import numpy as np
 import torch
+import matplotlib.pyplot as plt
+from PIL import Image
 from torch import nn, optim
 from torchvision import models
+
+from utility import process_image, load_checkpoint
+
 
 def build_classifier(arch):
     """
@@ -132,3 +138,25 @@ def save_model(model, data, dir):
 
     torch.save(checkpoint, dir)
     print('Saving is complete.')
+
+
+def predict(image_path, checkpoint, topk=5):
+    ''' Predict the class (or classes) of an image using a trained deep learning model.
+    '''
+    
+    with torch.no_grad():
+        image = process_image(image_path)
+        image = torch.from_numpy(image)
+        image.unsqueeze_(0)
+        image = image.float()
+        model, _ = load_checkpoint(checkpoint)
+        outputs = model(image)
+        probs, classes = torch.exp(outputs).topk(topk)
+        return probs[0].tolist(), classes[0].add(1).tolist()
+
+
+def display_prediction(image_path, model, cat_to_name):
+    probs, classes = predict(image_path, model)
+    plant_classes = [cat_to_name[str(cls)] + "({})".format(str(cls)) for cls in classes]
+    print(plant_classes, probs)
+    

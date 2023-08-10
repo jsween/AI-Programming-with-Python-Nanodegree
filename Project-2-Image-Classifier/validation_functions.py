@@ -49,6 +49,7 @@ def check_train_cl_args(in_arg):
         )
     else:
         # prints command line agrs
+        # TODO: Print out 
         print(
             "Command Line Arguments:\n\tdir =",
             in_arg.dir,
