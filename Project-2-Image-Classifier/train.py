@@ -4,7 +4,8 @@
 # PROGRAMMER: Jonathan Sweeney
 # DATE CREATED: 20230809
 # REVISED DATE: 20230810
-# PURPOSE: Classifies flower images using a pretrained CNN model.
+# PURPOSE: Trains a new network on a flower data set and save the model as
+#          a checkpoint.
 #
 # Use argparse Expected Call with <> indicating expected user input:
 #      python train.py
@@ -23,17 +24,16 @@ from time import time
 
 from classifier import *
 from get_data import *
-from validation_functions import *
+from validation_functions import check_train_cl_args, check_accuracy_on_test
 from utility import calc_elapsed_time
 
 
 def main():
     start_time = time()
     in_arg = get_train_input_args()
-    check_predict_cl_args(in_arg)
+    check_train_cl_args(in_arg)
 
     data = get_train_data()
-
     model = build_classifier(in_arg.arch)
     train_classifier(
         model, data["train_loaders"], data["valid_loaders"], 3, 40, device="cpu"
