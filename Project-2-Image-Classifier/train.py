@@ -30,7 +30,7 @@ from utility import calc_elapsed_time
 def main():
     start_time = time()
     in_arg = get_train_input_args()
-    check_command_line_arguments(in_arg)
+    check_predict_cl_args(in_arg)
 
     data = get_train_data()
 

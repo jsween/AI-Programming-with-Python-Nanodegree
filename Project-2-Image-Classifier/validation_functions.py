@@ -13,7 +13,8 @@ import os
 
 import torch
 
-def check_command_line_arguments(in_arg):
+
+def check_train_cl_args(in_arg):
     """
     Prints each of the command line arguments passed in as parameter in_arg,
     assumes you defined all three command line arguments
@@ -35,11 +36,6 @@ def check_command_line_arguments(in_arg):
      Nothing - just prints to console
     """
     print("Validating command line arguments...")
-    if in_arg is None:
-        print(
-            "* Doesn't Check the Command Line Arguments because 'get_input_args' hasn't been defined."
-        )
-        return
     if in_arg.dir is None:
         raise Exception(
             "Data directory not provided: A path to the data dir is required (e.g. ./flowers/)."
@@ -47,8 +43,10 @@ def check_command_line_arguments(in_arg):
     elif not os.path.isdir(in_arg.dir):
         raise Exception(f"Invalid directory: '{in_arg.dir}' does not exist.")
     sub_dirs = os.listdir(in_arg.dir)
-    if 'train' not in sub_dirs and 'valid' not in sub_dirs and 'test' not in sub_dirs:
-        raise Exception(f"Missing one or more of sub directories train, valid, test. Found {sub_dirs}")
+    if "train" not in sub_dirs and "valid" not in sub_dirs and "test" not in sub_dirs:
+        raise Exception(
+            f"Missing one or more of sub directories train, valid, test. Found {sub_dirs}"
+        )
     else:
         # prints command line agrs
         print(
@@ -59,7 +57,20 @@ def check_command_line_arguments(in_arg):
         )
 
 
-def check_accuracy_on_test(testloader, model, device='cpu'):    
+def check_predict_cl_args(in_arg):
+    print("Validing CL arguments...")
+    if in_arg.image_path is None:
+        raise Exception(
+            "Image Path not provided. A path to the file to predict is required."
+        )
+    if in_arg.checkpoint is None:
+        raise Exception(
+            "Image Path not provided. A path to the file to predict is required."
+        )
+    print("Args are valid.")
+
+
+def check_accuracy_on_test(testloader, model, device="cpu"):
     correct = 0
     total = 0
     with torch.no_grad():
@@ -69,5 +80,8 @@ def check_accuracy_on_test(testloader, model, device='cpu'):
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-    print('Accuracy of the network on the 10,000 test images: %d %%' % (100 * correct / total))
-    return correct / total 
+    print(
+        "Accuracy of the network on the 10,000 test images: %d %%"
+        % (100 * correct / total)
+    )
+    return correct / total

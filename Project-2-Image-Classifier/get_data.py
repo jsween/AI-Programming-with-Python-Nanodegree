@@ -38,6 +38,7 @@ def get_train_input_args():
     print("Parsing arguments...")
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        # TODO: Remove the double hyphen
         "--dir",
         type=str,
         help="Required: The path to the directory containing flower images (e.g. flowers/)",
@@ -61,8 +62,37 @@ def get_train_input_args():
 
 def get_predict_input_args():
     print('Parsing command line arguments...')
+    parser = argparse.ArgumentParser(description="Parser for prediction command line arguments")
+    parser.add_argument(
+        "image_path",
+        type=str,
+        help="Required: The path to the directory containing flower image (e.g. flowers/valid/1/12345.jpg)",
+    )
+    parser.add_argument(
+        "checkpoint",
+        type=str,
+        help="Required: The file containing the classification model (e.g. check.pth)",
+    )
+    parser.add_argument(
+        "--top_k",
+        type=str,
+        default="5",
+        help="Show the top K likely classes (e.g. 3)",
+    )
+    parser.add_argument(
+        "--category_names",
+        type=str,
+        default="cat_to_name.json",
+        help="File to be used for category names (e.g. cat_name.json)",
+    )
+    parser.add_argument(
+        "--gpu",
+        type=bool,
+        help="Enable gpu",
+    )
+    print("Command line arguments parsed")
 
-    print('Arguments parsed.')
+    return parser.parse_args()
 
 def get_train_data():
     """
