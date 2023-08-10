@@ -3,7 +3,7 @@
 #
 # PROGRAMMER: Jon Sweeney
 # DATE CREATED: 20230809
-# REVISED DATE:
+# REVISED DATE: 20230810
 # PURPOSE:  This set of functions can be used to check arguments passed
 #           into functions to verify code runs properly.
 #
@@ -49,16 +49,18 @@ def check_train_cl_args(in_arg):
         )
     else:
         # prints command line agrs
-        # TODO: Print out 
         print(
-            "Command Line Arguments:\n\tdir =",
-            in_arg.dir,
-            "\n\tarch =",
-            in_arg.arch,
+            f"Command Line Arguments:\n\tdir = {in_arg.dir}\n",
+            f"\tsave = {in_arg.save}\n\tarch = {in_arg.arch}\n",
+            f"\tlearning_rate = {in_arg.learning_rate}\n\thidden_units = {in_arg.hidden_units}\n",
+            f"\tgpu = {in_arg.gpu}"
         )
 
 
 def check_predict_cl_args(in_arg):
+    """
+    TODO: Fill out docstring
+    """
     print("Validing CL arguments...")
     if in_arg.image_path is None:
         raise Exception(
@@ -72,6 +74,9 @@ def check_predict_cl_args(in_arg):
 
 
 def check_accuracy_on_test(testloader, model, device="cpu"):
+    """
+    TODO: Fill out docstring
+    """
     correct = 0
     total = 0
     with torch.no_grad():
