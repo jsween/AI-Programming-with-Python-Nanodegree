@@ -8,8 +8,8 @@
 #
 ##
 import argparse
-
 import json
+
 import torch
 from torchvision import datasets, transforms
 
@@ -28,7 +28,9 @@ def get_train_input_args():
      parse_args() -data structure that stores the command line arguments object
     """
     print("Parsing arguments...")
-    parser = argparse.ArgumentParser(description="Parser for train command line arguments ")
+    parser = argparse.ArgumentParser(
+        description="Parser for train command line arguments "
+    )
     parser.add_argument(
         "dir",
         type=str,
@@ -69,7 +71,7 @@ def get_train_input_args():
         type=str,
         help="Use to utilize GPU for training (e.g. --gpu)",
     )
-    
+
     print("Command line arguments parsed")
 
     return parser.parse_args()
@@ -82,14 +84,16 @@ def get_predict_input_args():
     argparse module to created and defined these command line arguments. If
     the user fails to provide all of the arguments, then the default values are
     used for the missing arguments.
-    
+
     Parameters:
      None - simply using argparse module to create & store command line arguments
     Returns:
      parse_args() -data structure that stores the command line arguments object
     """
-    print('Parsing command line arguments...')
-    parser = argparse.ArgumentParser(description="Parser for prediction command line arguments")
+    print("Parsing command line arguments...")
+    parser = argparse.ArgumentParser(
+        description="Parser for prediction command line arguments"
+    )
     parser.add_argument(
         "image_path",
         type=str,
@@ -122,16 +126,18 @@ def get_predict_input_args():
     return parser.parse_args()
 
 
-def get_train_data():
+def get_train_data(dir):
     """
-    Gets the data directories
+    Gets the data directories and labels
 
+    Parameters:
+        dir : str 
+            path to image data
     Returns:
-      Image data organized by category
+        Image data organized by category
     """
-    # TODO: Change to use command line arguments
     print("Getting data...")
-    data_dir = "flowers"
+    data_dir = dir
     train_dir = data_dir + "/train"
     valid_dir = data_dir + "/valid"
     test_dir = data_dir + "/test"
@@ -143,28 +149,28 @@ def process_images(data_dirs):
     """
     Processes the raw images to be ready to be used to train the model
 
+    Parameters:
+        data_dirs : [str]
+            paths to train, valid, and test image data directories
     Returns:
-      JSON object with image data broken into train, valid, test and the labels
+        JSON object with image data broken into train, valid, test and the labels
     """
     train_dir, valid_dir, test_dir = data_dirs
     normalize = transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 
-    # Define transforms for training, validation, and testing sets
     modified_transforms = transforms.Compose(
         [
             transforms.Resize(255),
             transforms.CenterCrop(224),
             transforms.ToTensor(),
-            normalize,
+            normalize
         ]
     )
 
-    # Load datasets with ImageFolder
     train_datasets = datasets.ImageFolder(train_dir, transform=modified_transforms)
     valid_datasets = datasets.ImageFolder(valid_dir, transform=modified_transforms)
     test_datasets = datasets.ImageFolder(test_dir, transform=modified_transforms)
 
-    # Define the dataloaders
     trainloaders = torch.utils.data.DataLoader(
         train_datasets, batch_size=32, shuffle=True
     )
@@ -179,6 +185,7 @@ def process_images(data_dirs):
         cat_to_name = json.load(f)
 
     print("Image data loaded")
+
     return {
         "train_loaders": trainloaders,
         "valid_loaders": validloaders,
