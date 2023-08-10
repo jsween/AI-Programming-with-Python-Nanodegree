@@ -44,7 +44,7 @@ def get_train_input_args():
     )
     parser.add_argument(
         "--arch",
-        type=str,
+        type=str.lower,
         default="vgg",
         help="The CNN Model Architecture to use (e.g. vgg)",
     )
