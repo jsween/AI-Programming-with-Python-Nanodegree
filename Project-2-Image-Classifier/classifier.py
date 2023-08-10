@@ -3,34 +3,38 @@
 #
 # PROGRAMMER: Jon Sweeney
 # DATE CREATED: 20230809
-# REVISED DATE:
+# REVISED DATE: 20230810
 # PURPOSE:  This set of functions to interact with the classifier object
 #
 ##
 
 from collections import OrderedDict
 
-import numpy as np
 import torch
-import matplotlib.pyplot as plt
-from PIL import Image
 from torch import nn, optim
 from torchvision import models
 
 from utility import process_image, load_checkpoint
 
 
-def build_classifier(arch):
+def build_classifier(arch, hidden_units):
     """
     Builds the classifier model object
 
     Returns:
         The classifier model
     """
-    # TODO: Add additional Pytorch models 
     print('Building the classifier...')
-    if arch == "vgg":
+    if arch == "vgg" or arch == "vgg19":
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
+    elif arch == "vgg16":
+        model = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
+    elif arch == "resnet" or arch == "resnet152":
+        model = models.resnet152(weights=models.ResNet152_Weights.DEFAULT)
+    elif arch == "alexnet":
+        model = models.alexnet(weights=models.AlexNet_Weights.DEFAULT)
+    elif arch == "squeezenet":
+        model = models.squeezenet1_1(weights=models.SqueezeNet1_1_Weights.DEFAULT)
     else:
         print(f"WARNING: {arch} is unsupported. Defaulting to vgg model.")
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
@@ -41,9 +45,9 @@ def build_classifier(arch):
     classifier = nn.Sequential(
         OrderedDict(
             [
-                ("fc1", nn.Linear(25088, 4096)),
+                ("fc1", nn.Linear(25088, hidden_units)),
                 ("relu", nn.ReLU()),
-                ("fc2", nn.Linear(4096, 102)),
+                ("fc2", nn.Linear(hidden_units, 102)),
                 ("output", nn.LogSoftmax(dim=1)),
             ]
         )
