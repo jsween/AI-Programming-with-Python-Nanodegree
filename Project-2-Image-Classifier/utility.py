@@ -24,7 +24,7 @@ def calc_elapsed_time(tot_time):
 
 def load_checkpoint(filepath):
     model_info = torch.load(filepath)
-    model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
+    model = model_info['transfer_model']
     classifier = nn.Sequential(OrderedDict([
                               ('fc1', nn.Linear(25088, 4096)),
                               ('relu', nn.ReLU()),
