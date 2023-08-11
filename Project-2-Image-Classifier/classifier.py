@@ -80,7 +80,7 @@ def check_validation_set(model, valid_loader, device='cpu'):
     return correct / total 
 
 
-def train_classifier(model, trainloader, validloader, epochs, print_every, learning_rate=0.001, device='cpu'):
+def train_classifier(model, trainloader, validloader, epochs, print_every, learning_rate, device):
     '''
     Trains the classifier
     Parameters:
@@ -111,7 +111,6 @@ def train_classifier(model, trainloader, validloader, epochs, print_every, learn
 
             optimizer.zero_grad()
 
-            # Forward and backward passes
             outputs = model.forward(inputs)
             loss = criterion(outputs, labels)
             loss.backward()
@@ -129,7 +128,7 @@ def train_classifier(model, trainloader, validloader, epochs, print_every, learn
     print("Training is Complete")
 
 
-def save_model(model, data, dir):
+def save_model(model, dir):
     print('Saving the model...')
 
     checkpoint = {'transfer_model': model.cpu(),
