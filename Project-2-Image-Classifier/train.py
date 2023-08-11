@@ -23,7 +23,7 @@
 from time import time
 
 from classifier import *
-from get_data import *
+from get_data import get_train_input_args, get_train_data
 from validation_functions import check_train_cl_args, check_accuracy_on_test
 from utility import calc_elapsed_time
 
@@ -33,15 +33,15 @@ def main():
     in_arg = get_train_input_args()
     check_train_cl_args(in_arg)
 
-    data = get_train_data()
-    model = build_classifier(in_arg.arch)
+    data = get_train_data(in_arg.dir)
+    model = build_classifier(in_arg.arch, in_arg.hidden_units)
     train_classifier(
-        model, data["train_loaders"], data["valid_loaders"], 3, 40, device="cpu"
+        model, data["train_loaders"], data["valid_loaders"], in_arg.epochs, 40, in_arg.learning_rate, in_arg.gpu
     )
 
-    check_accuracy_on_test(data["test_loaders"], model)
+    check_accuracy_on_test(data["test_loaders"], model, in_arg.gpu)
 
-    save_model(model, data, in_arg.save)
+    save_model(model, in_arg.save)
 
     end_time = time()
     calc_elapsed_time(end_time - start_time)
