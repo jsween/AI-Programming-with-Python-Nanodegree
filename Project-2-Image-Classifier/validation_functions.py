@@ -47,14 +47,18 @@ def check_train_cl_args(in_arg):
         raise Exception(
             f"Missing one or more of sub directories train, valid, test. Found {sub_dirs}"
         )
+    if in_arg.gpu and not torch.cuda.is_available():
+        raise Exception("ERROR: GPU not detected on this machine. Do not select '--gpu' flag or try again")
+    if in_arg.gpu:
+        in_arg.gpu = "gpu"
     else:
-        # prints command line agrs
-        print(
-            f"Command Line Arguments:\n\tdir = {in_arg.dir}\n",
-            f"\tsave = {in_arg.save}\n\tarch = {in_arg.arch}\n",
-            f"\tlearning_rate = {in_arg.learning_rate}\n\thidden_units = {in_arg.hidden_units}\n",
-            f"\tgpu = {in_arg.gpu}"
-        )
+        in_arg.gpu = "cpu"
+    print(
+        f"Command Line Arguments:\n\tdir = {in_arg.dir}\n",
+        f"\tsave = {in_arg.save}\n\tarch = {in_arg.arch}\n",
+        f"\tlearning_rate = {in_arg.learning_rate}\n\thidden_units = {in_arg.hidden_units}\n",
+        f"\tgpu = {in_arg.gpu}"
+    )
 
 
 def check_predict_cl_args(in_arg):
