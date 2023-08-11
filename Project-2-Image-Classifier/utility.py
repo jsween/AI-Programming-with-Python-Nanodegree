@@ -17,12 +17,28 @@ from torch import nn
 from torchvision import models
 
 def calc_elapsed_time(tot_time):
+    """
+    Converts and displays total elapsed time
+
+    Parameters:
+        tot_time : amount of time between start and end
+    Returns:
+        None
+    """
     print("\n*** Total Elapsed Runtime:",
           str(int((tot_time/3600)))+":"+str(int((tot_time%3600)/60))+":"
           +str(int((tot_time%3600)%60)) )
 
 
 def load_checkpoint(filepath):
+    """
+    Loads the last saved classifier
+
+    Parameters:
+        filepath: the path to the saved classifier
+    Returns:
+        the model and the metadata
+    """
     model_info = torch.load(filepath)
     model = model_info['transfer_model']
     classifier = nn.Sequential(OrderedDict([
@@ -71,7 +87,15 @@ def process_image(image):
     return np_image
 
 
-def read_cat_to_name(path='cat_to_name.json'):
+def read_cat_to_name(path):
+    """
+    Reads the category to name mapping
+
+    Parameters:
+        path: path to file
+    Returns:
+        category to name mapping in json object
+    """
     with open(path, 'r') as f:
         cat_to_name = json.load(f)
 
