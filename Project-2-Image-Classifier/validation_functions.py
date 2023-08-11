@@ -61,25 +61,16 @@ def check_train_cl_args(in_arg):
     )
 
 
-def check_predict_cl_args(in_arg):
+def check_accuracy_on_test(testloader, model, device):
     """
-    TODO: Fill out docstring
-    """
-    print("Validing CL arguments...")
-    if in_arg.image_path is None:
-        raise Exception(
-            "Image Path not provided. A path to the file to predict is required."
-        )
-    if in_arg.checkpoint is None:
-        raise Exception(
-            "Image Path not provided. A path to the file to predict is required."
-        )
-    print("Args are valid.")
+    Checks the accurracy on a set of test images
 
-
-def check_accuracy_on_test(testloader, model, device="cpu"):
-    """
-    TODO: Fill out docstring
+    Parameters:
+        testloader: data loader of test images
+        model: classifier
+        device: cpu or gpu device
+    Returns: 
+        Percentage of correct classifications
     """
     correct = 0
     total = 0
@@ -95,3 +86,22 @@ def check_accuracy_on_test(testloader, model, device="cpu"):
         % (100 * correct / total)
     )
     return correct / total
+
+
+def check_predict_cl_args(in_arg):
+    """
+    Check Prediction Command Line Arguments
+
+    Parameters:
+     in_arg: command line arguments object
+    """
+    print("Validing CL arguments...")
+    if in_arg.image_path is None:
+        raise Exception(
+            "Image Path not provided. A path to the file to predict is required."
+        )
+    if in_arg.checkpoint is None:
+        raise Exception(
+            "Image Path not provided. A path to the file to predict is required."
+        )
+    print("Args are valid.")
