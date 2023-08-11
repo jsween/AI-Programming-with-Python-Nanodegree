@@ -63,12 +63,12 @@ def get_train_input_args():
     parser.add_argument(
         "--epochs",
         type=int,
-        default=20,
+        default=3,
         help="The number of epochs to use (e.g. 20)",
     )
     parser.add_argument(
         "--gpu",
-        type=str,
+        action="store_true",
         help="Use to utilize GPU for training (e.g. --gpu)",
     )
 
