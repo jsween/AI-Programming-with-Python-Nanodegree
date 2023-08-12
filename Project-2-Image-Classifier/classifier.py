@@ -32,12 +32,6 @@ def build_classifier(arch, hidden_units):
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
     elif arch == "vgg16":
         model = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
-    elif arch == "resnet" or arch == "resnet152":
-        model = models.resnet152(weights=models.ResNet152_Weights.DEFAULT)
-    elif arch == "alexnet":
-        model = models.alexnet(weights=models.AlexNet_Weights.DEFAULT)
-    elif arch == "squeezenet":
-        model = models.squeezenet1_1(weights=models.SqueezeNet1_1_Weights.DEFAULT)
     else:
         print(f"WARNING: {arch} is unsupported. Defaulting to vgg model.")
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
