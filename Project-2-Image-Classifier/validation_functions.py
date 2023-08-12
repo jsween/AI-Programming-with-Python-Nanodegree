@@ -38,7 +38,7 @@ def check_train_cl_args(in_arg):
     print("Validating command line arguments...")
     if in_arg.dir is None:
         raise Exception(
-            "Data directory not provided: A path to the data dir is required (e.g. ./flowers/)."
+            "Data directory not provided: A path to the data dir is required (e.g. ./flowers)."
         )
     elif not os.path.isdir(in_arg.dir):
         raise Exception(f"Invalid directory: '{in_arg.dir}' does not exist.")
