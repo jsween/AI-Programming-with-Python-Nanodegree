@@ -174,7 +174,7 @@ def predict(image_path, checkpoint, top_k):
         return probs[0].tolist(), classes[0].add(1).tolist()
 
 
-def display_prediction(image_path, model, cat_to_name):
+def display_prediction(in_arg, model, cat_to_name):
     """
     Displays the Predictions
     
@@ -185,6 +185,6 @@ def display_prediction(image_path, model, cat_to_name):
     Returns: 
         None
     """
-    probs, classes = predict(image_path, model)
+    probs, classes = predict(in_arg.image_path, model, in_arg.top_k)
     plant_classes = [cat_to_name[str(cls)] + "({})".format(str(cls)) for cls in classes]
     print(plant_classes, probs)

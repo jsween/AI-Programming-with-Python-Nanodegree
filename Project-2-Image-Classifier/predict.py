@@ -31,8 +31,8 @@ def main():
 
     in_arg = get_predict_input_args()
     check_predict_cl_args(in_arg)
-    cat_to_name = read_cat_to_name()
-    display_prediction(in_arg.image_path, in_arg.checkpoint, cat_to_name)
+    cat_to_name = read_cat_to_name(in_arg.category_names)
+    display_prediction(in_arg, in_arg.checkpoint, cat_to_name)
     end_time = time()
     calc_elapsed_time(end_time - start_time)
 
