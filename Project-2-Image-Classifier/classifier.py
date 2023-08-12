@@ -32,6 +32,7 @@ def build_classifier(arch, hidden_units):
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
     elif arch == "vgg16":
         model = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
+    # TODO: Add another supported model
     else:
         print(f"WARNING: {arch} is unsupported. Defaulting to vgg model.")
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
@@ -187,4 +188,9 @@ def display_prediction(in_arg, model, cat_to_name):
     """
     probs, classes = predict(in_arg.image_path, model, in_arg.top_k)
     plant_classes = [cat_to_name[str(cls)] + "({})".format(str(cls)) for cls in classes]
-    print(plant_classes, probs)
+    
+    print(f"\nTop {in_arg.top_k} Results\n{'FLOWER NAME AND CLASS': <25}PROBABILITY",
+          f"\n****************************************")
+    max_len = len(max(plant_classes, key=len))+3
+    for result in zip(plant_classes, probs):
+        print(f"{result[0].capitalize(): <{max_len}} {round(result[1],6)}")
