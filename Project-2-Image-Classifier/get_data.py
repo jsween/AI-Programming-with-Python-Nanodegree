@@ -57,7 +57,6 @@ def get_train_input_args():
     parser.add_argument(
         "--hidden_units",
         type=int,
-        default=4096,
         help="The number of hidden units (e.g. 3)",
     )
     parser.add_argument(

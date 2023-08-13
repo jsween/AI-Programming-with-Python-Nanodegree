@@ -28,11 +28,16 @@ def build_classifier(arch, hidden_units):
         The classifier model
     """
     print("Building the classifier...")
+    in_features = 25088
     if arch == "vgg" or arch == "vgg19":
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
+        # in_features = model.classifier[0].in_features
+        # try input_node = model.classifier[0].in_features
     elif arch == "vgg16":
         model = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
-    # TODO: Add another supported model
+    elif arch == "densenet" or arch == "densenet201":
+        model = models.densenet201(weights=models.DenseNet201_Weights.DEFAULT)
+        in_features = 1920
     else:
         print(f"WARNING: {arch} is unsupported. Defaulting to vgg model.")
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
@@ -43,7 +48,7 @@ def build_classifier(arch, hidden_units):
     classifier = nn.Sequential(
         OrderedDict(
             [
-                ("fc1", nn.Linear(25088, hidden_units)),
+                ("fc1", nn.Linear(in_features, hidden_units)),
                 ("relu", nn.ReLU()),
                 ("fc2", nn.Linear(hidden_units, 102)),
                 ("output", nn.LogSoftmax(dim=1)),
@@ -131,7 +136,7 @@ def train_classifier(
 
 def save_model(model, file):
     """
-    Saves te classifier model
+    Saves the classifier model
 
     Parameters:
         model - pytorch model
@@ -169,7 +174,7 @@ def predict(image_path, checkpoint, top_k):
         image = torch.from_numpy(image)
         image.unsqueeze_(0)
         image = image.float()
-        model, _ = load_checkpoint(checkpoint)
+        model = load_checkpoint(checkpoint)
         outputs = model(image)
         probs, classes = torch.exp(outputs).topk(top_k)
         return probs[0].tolist(), classes[0].add(1).tolist()

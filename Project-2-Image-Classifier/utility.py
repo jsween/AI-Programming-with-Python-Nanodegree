@@ -37,21 +37,14 @@ def load_checkpoint(filepath):
     Parameters:
         filepath: the path to the saved classifier
     Returns:
-        the model and the metadata
+        the saved model
     """
     model_info = torch.load(filepath)
     model = model_info['transfer_model']
-    classifier = nn.Sequential(OrderedDict([
-                              ('fc1', nn.Linear(25088, 4096)),
-                              ('relu', nn.ReLU()),
-                              ('fc2', nn.Linear(4096, 102)),
-                              ('output', nn.LogSoftmax(dim=1))
-                              ]))
-
-    model.classifier = classifier
     model.load_state_dict(model_info['state_dict'])
+    model.classifier = model_info['classifier']
 
-    return model, model_info
+    return model
 
 
 def process_image(image):
