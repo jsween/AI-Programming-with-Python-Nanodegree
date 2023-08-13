@@ -29,15 +29,19 @@ def build_classifier(arch, hidden_units):
     """
     print("Building the classifier...")
     in_features = 25088
-    if arch == "vgg" or arch == "vgg19":
-        model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
-        # in_features = model.classifier[0].in_features
-        # try input_node = model.classifier[0].in_features
-    elif arch == "vgg16":
+    if arch == "vgg16":
         model = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
-    elif arch == "densenet" or arch == "densenet201":
+        # try input_node = model.classifier[0].in_features
+        in_features = model.classifier[0].in_features
+    if "vgg" in arch:
+        model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
+        in_features = model.classifier[0].in_features
+    elif "densenet" in arch:
         model = models.densenet201(weights=models.DenseNet201_Weights.DEFAULT)
         in_features = 1920
+    elif "alexnet" in arch:
+        model = models.alexnet(weights=models.AlexNet_Weights.DEFAULT)
+        in_features = 9216
     else:
         print(f"WARNING: {arch} is unsupported. Defaulting to vgg model.")
         model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)

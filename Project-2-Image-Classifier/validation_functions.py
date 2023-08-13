@@ -56,6 +56,8 @@ def check_train_cl_args(in_arg):
     if in_arg.hidden_units is None:
         if "densenet" in in_arg.arch:
             in_arg.hidden_units = 1024
+        elif "resnet" in in_arg.arch: 
+            in_arg.hidden_units = 1024
         else:
             in_arg.hidden_units = 4096
     print(
