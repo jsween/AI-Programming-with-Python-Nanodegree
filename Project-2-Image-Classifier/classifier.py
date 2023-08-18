@@ -138,18 +138,22 @@ def train_classifier(
     print("Training is Complete")
 
 
-def save_model(model, file):
+def save_model(model, file, args):
     """
     Saves the classifier model
 
     Parameters:
-        model - pytorch model
+        model - pytorch model object
         file - file name to save the model to
+        args - command line input arguments
     """
     print("Saving the model...")
 
     checkpoint = {
+        "model_arch": args.arch,
+        "hidden_layers": args.hidden_layers,
         "transfer_model": model.cpu(),
+        "learning_rate": args.learning_rate,
         "input_size": 25088,
         "output_size": 102,
         "features": model.features,

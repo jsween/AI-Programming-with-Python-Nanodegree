@@ -41,7 +41,7 @@ def main():
 
     check_accuracy_on_test(data["test_loaders"], model, in_arg.gpu)
 
-    save_model(model, in_arg.save)
+    save_model(model, in_arg.save, in_arg.arch)
 
     end_time = time()
     calc_elapsed_time(end_time - start_time)
