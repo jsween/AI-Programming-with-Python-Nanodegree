@@ -165,7 +165,7 @@ def save_model(model, file, args):
     print(f"Model saved as {file}.")
 
 
-def predict(image_path, checkpoint, top_k):
+def predict(image_path, checkpoint, top_k, use_gpu):
     """
     Predict the class (or classes) of an image using a trained deep learning model.
     
@@ -173,6 +173,7 @@ def predict(image_path, checkpoint, top_k):
         image_path: path to the image data
         checkpoint: saved model to use
         top_k: top k predictions
+        use_gpu: bool if should use CUDA 
     Returns:
         The results of the model's prediction
     """
@@ -183,6 +184,12 @@ def predict(image_path, checkpoint, top_k):
         image.unsqueeze_(0)
         image = image.float()
         model = load_checkpoint(checkpoint)
+        if use_gpu and torch.cuda.is_available:
+            image = image.cuda()
+            model = model.cuda()
+        else:
+            image = image.cpu()
+            model = model.cpu()
         outputs = model(image)
         probs, classes = torch.exp(outputs).topk(top_k)
         return probs[0].tolist(), classes[0].add(1).tolist()

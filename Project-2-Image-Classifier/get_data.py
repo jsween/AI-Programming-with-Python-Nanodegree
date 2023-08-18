@@ -117,8 +117,8 @@ def get_predict_input_args():
     )
     parser.add_argument(
         "--gpu",
-        type=str,
-        help="Enable gpu",
+        action="store_true",
+        help="Enable gpu for prediction",
     )
     print("Command line arguments parsed")
 
