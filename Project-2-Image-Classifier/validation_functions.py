@@ -49,9 +49,11 @@ def check_train_cl_args(in_arg):
         )
     if in_arg.gpu and not torch.cuda.is_available():
         raise Exception("ERROR: GPU not detected on this machine. Do not select '--gpu' flag or try again")
-    if in_arg.gpu:
-        in_arg.gpu = "gpu"
+    if in_arg.gpu and torch.cuda.is_available():
+        in_arg.gpu = "cuda"
     else:
+        if in_arg.gpu and not torch.cuda.is_available():
+            print("WARNING: GPU is not available. Using CPU.")
         in_arg.gpu = "cpu"
     if in_arg.hidden_units is None:
         if "densenet" in in_arg.arch:
