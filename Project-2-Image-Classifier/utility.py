@@ -11,10 +11,7 @@ import json
 
 import torch
 import numpy as np
-from collections import OrderedDict
 from PIL import Image
-from torch import nn
-from torchvision import models
 
 def calc_elapsed_time(tot_time):
     """
